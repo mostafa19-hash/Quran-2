@@ -4,6 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ورتل القرآن ترتيلاً — القرآن الكريم</title>
+
+<!-- تم إضافة هذا السطر فقط لضمان وجود خط يدعم النص العربي القرآني -->
+<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --green:#3ea34a;
@@ -184,7 +188,8 @@ async function loadSurahs(){
 }
 
 async function loadSurahDetails(num){
-  const res=await fetch(`${API_BASE}/surah/${num}`);
+  // تم التعديل هنا لاستخدام النسخة العادية (quran-simple) عشان تتفادى رموز النص العثماني
+  const res=await fetch(`${API_BASE}/surah/${num}/quran-simple`);
   const j=await res.json();
   return j.data||j;
 }
@@ -197,6 +202,7 @@ async function showSurah(num){
     div.innerHTML=`<div class="meta">آية ${a.numberInSurah}</div><div class="arabic">${a.text}</div>`;
     verseList.appendChild(div);
   });
+  // تمرير تلقائي لأول آية عند تغيير السورة
   verseList.scrollTop = 0;
 }
 
